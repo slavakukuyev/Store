@@ -1,0 +1,31 @@
+<h1>Admin Panel Products</h1>
+<a href="<?php echo $this->url('store/default', array('controller' => 'admin', 'action' => 'create-product')); ?>">Create</a>
+
+
+<table class="table">
+<tr>
+        <th>pr_id</th>
+        <th>brand</th>
+        <th>title</th>
+</tr>
+<?php
+        foreach ($this->paginator as $row) {
+?>
+                <tr>
+                        <td><?php  echo $row->id; ?></td>
+                        <td><?php  echo $row->brand; ?></td>
+                        <td><?php  echo $row->title; ?></td>
+                        <td><a href="<?php echo $this->url('store/default', array('controller' => 'admin', 'action' => 'edit-product', 'id' => $row->id)); ?>">Edit</a></td>
+                        <td><a href="<?php echo $this->url('store/default', array('controller' => 'admin', 'action' => 'delete-product', 'id' => $row->id));?>" onclick="return confirm('Do you rely want to delete the record?')">Delete</a></td>
+                </tr>
+<?php
+        }
+?>
+</table>
+
+<?php echo $this->paginationControl($this->paginator,
+                                    'Sliding', // All, Elastic, Jumping, Sliding
+                                    'search_pagination.phtml',
+        array('route' => 'store/products')); ?>
+<!-- 'search_pagination.phtml' 'item_pagination.phtml' dropdown_pagination.phtml -->
+<!-- ToDo, 'controller' => 'user-doctrine-paginator', array('controler'=>'user-doctrine-paginaytor') -->

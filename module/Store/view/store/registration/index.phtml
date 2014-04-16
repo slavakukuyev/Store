@@ -1,0 +1,24 @@
+<h1>Registration</h1>
+
+<?php
+ echo $this->messages;
+        $form = $this->form;
+        $form->setAttribute('action', $this->url('store/default', array('controller' => 'registration', 'action' => 'index')));
+        $form->setAttribute('class', 'form-horizontal');
+        $form->prepare();
+
+
+        echo $this->form()->openTag($form);
+echo $this->formCollection($form);
+        //echo $this->formHidden($form->get('id'));
+//        echo $this->formRow($form->get('firstname'));
+//        echo $this->formRow($form->get('lastname'));
+//        echo $this->formRow($form->get('email'));
+//        echo $this->formRow($form->get('password'));
+//        echo $this->formRow($form->get('birthdate'));
+//        echo $this->formRow($form->get('captcha'));
+//        echo $this->formSubmit($form->get('submit'));
+        echo $this->form()->closeTag();
+
+
+?>

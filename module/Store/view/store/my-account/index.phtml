@@ -1,0 +1,49 @@
+<h1>My Account |  <a href="<?=$this->url('store/default', array('controller' => 'myaccount', 'action' => 'deposit'))?>">Deposit</a>  |  <a href="<?=$this->url('store/default', array('controller' => 'myaccount', 'action' => 'history'))?>">History</a></h1>
+<?php
+echo "<p style='color:blue;'>" . $this->message . "</p>";
+if ($this->messageFromDeposit!=null) {
+    echo "<p style='color:blue;'>" . $this->messageFromDeposit . "</p>";
+}
+
+
+echo "<h3>Edit Personal Details</h3>";
+$pdform = $this->pdform;
+$pdform->setAttribute('action', $this->url('store/default', array('controller' => 'myaccount', 'action' => 'index')));
+$pdform->prepare();
+echo $this->form()->openTag($pdform);
+echo $this->formHidden($pdform->get('id'));
+echo $this->formRow($pdform->get('email'));
+echo $this->formRow($pdform->get('firstname'));
+echo $this->formRow($pdform->get('lastname'));
+echo $this->formRow($pdform->get('birthdate'));
+echo $this->formSubmit($pdform->get('submit'));
+echo $this->form()->closeTag();
+echo "<hr>";
+
+
+echo "<h3>Edit Address</h3>";
+$aform = $this->aform;
+$aform->setAttribute('action', $this->url('store/default', array('controller' => 'myaccount', 'action' => 'index')));
+$aform->prepare();
+echo $this->form()->openTag($aform);
+echo $this->formRow($aform->get('userid')->setAttribute('value', $this->identity()->id));
+echo $this->formRow($aform->get('cityid'));
+echo $this->formRow($aform->get('cities')->setAttribute('options', $this->cityTable));
+echo $this->formRow($aform->get('street'));
+echo $this->formRow($aform->get('phone1'));
+echo $this->formRow($aform->get('phone2'));
+echo $this->formSubmit($aform->get('submit'));
+echo $this->form()->closeTag();
+
+
+echo "<h3>Change Password</h3>";
+$pform = $this->pform;
+$pform->setAttribute('action', $this->url('store/default', array('controller' => 'myaccount', 'action' => 'index')));
+$pform->prepare();
+echo $this->form()->openTag($pform);
+echo $this->formRow($pform->get('password')->setAttribute('value', ''));
+echo $this->formRow($pform->get('newPassword')->setAttribute('value', ''));
+echo $this->formRow($pform->get('confirmPassword')->setAttribute('value', ''));
+echo $this->formSubmit($pform->get('submit'));
+echo $this->form()->closeTag();
+?>

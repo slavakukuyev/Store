@@ -1,0 +1,52 @@
+<h1><a href="<?= $this->url('store/default', array('controller' => 'myaccount', 'action' => 'index')) ?>">My Account</a> |  Deposit  |  <a href="<?=$this->url('store/default', array('controller' => 'myaccount', 'action' => 'history'))?>">History</a></h1>
+
+<h3>Your current balance: <?= $this->balance ?></h3>
+<?php
+
+echo "<p style='color:blue;'>" . $this->message . "</p>";
+$form = $this->form;
+$form->setAttribute('action', $this->url('store/default', array('controller' => 'myaccount', 'action' => 'deposit')));
+$form->prepare();
+echo $this->form()->openTag($form);
+echo $this->formHidden($form->get('userid')->setAttribute('value', $this->identity()->id));
+echo $this->formRow($form->get('amount')->setAttribute('value', ''));
+echo $this->formRow($form->get('creditcard')->setAttribute('value', ''));
+echo $this->formRow($form->get('cvv')->setAttribute('value', ''));
+echo $this->formSubmit($form->get('submit'));
+echo $this->form()->closeTag();
+echo "<hr>";
+?>
+
+
+
+<h3>my deposits</h3>
+
+
+
+<table class="table">
+<tr>
+        <th>depositid</th>
+        <th>amount</th>
+        <th>creditcard(last 4 num)</th>
+        <th>date of deposit</th>
+</tr>
+<?php
+        foreach ($this->paginator as $row) {
+?>
+                <tr>
+                        <td><?php  echo $row->id; ?></td>
+                        <td><?php  echo $row->amount; ?></td>
+                        <td><?php  echo '...'.substr($row->creditcard, -4); ?></td>     
+                        <td><?php  echo $row->deposited; ?></td>     
+                </tr>
+<?php
+        }
+?>
+</table>
+
+<?php echo $this->paginationControl($this->paginator,
+                                    'Sliding', // All, Elastic, Jumping, Sliding
+                                    'search_pagination.phtml',
+        array('route' => 'store/mydeposits')); ?>
+<!-- 'search_pagination.phtml' 'item_pagination.phtml' dropdown_pagination.phtml -->
+<!-- ToDo, 'controller' => 'user-doctrine-paginator', array('controler'=>'user-doctrine-paginaytor') -->

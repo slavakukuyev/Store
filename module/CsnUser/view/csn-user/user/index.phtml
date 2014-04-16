@@ -1,0 +1,26 @@
+
+<h1>Index-Retrieve</h1>
+
+<a href="<?php echo $this->url('csn_user/default',array('controller'=>'user','action'=>'create'));?>">Create</a>
+
+<table>
+    <tr>
+        <td>id</td>
+        <td>email</td>
+        <td>firstname</td>
+    </tr>
+    <?php
+    foreach ($rowset as $row) {
+        ?>
+        <tr>
+            <td><?php echo $row['id']?></td>
+            <td><?php echo $row['email']?></td>
+            <td><?php echo $row['firstname']?></td>
+            <td><a href="<?php echo $this->url('csn_user/default',array('controller'=>'user','action'=>'update', 'id'=>$row['id'])); ?>">Edit</a></td>
+            <td><a href="<?php echo $this->url('csn_user/default',array('controller'=>'user','action'=>'delete', 'id'=>$row['id'])); ?>" onclick="return confirm('Do you rely want to delete')">Delete</a></td>
+        </tr>
+    <?php } ?>
+</table>
+
+
+

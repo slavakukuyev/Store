@@ -1,0 +1,45 @@
+back to <a href="<?=$this->url('store/default', array('controller' => 'admin', 'action' => 'users'))?>">users</a>
+<h1>Edit User</h1>    
+
+<?php
+echo "<p style='color:blue;'>" . $this->message . "</p>";
+
+
+$uform = $this->uform;
+$uform->setAttribute('action', $this->url('store/default', array('controller' => 'admin', 'action' => 'edit-user', 'id' => $this->userid)));
+$uform->setAttribute('class', 'form-horizontal');
+$uform->prepare();
+echo $this->form()->openTag($uform);
+echo $this->formRow($uform->get('id'));
+echo $this->formRow($uform->get('email'));
+echo $this->formRow($uform->get('firstname'));
+echo $this->formRow($uform->get('lastname'));
+echo "<br>";
+echo $this->formRow($uform->get('registered'));
+echo $this->formRow($uform->get('birthdate'));
+echo $this->formRow($uform->get('balance'));
+echo $this->formRow($uform->get('isadmin'));
+echo $this->formRow($uform->get('enabled'));
+echo "<br>";
+echo $this->formSubmit($uform->get('submit'));
+echo $this->form()->closeTag();
+
+echo "<hr>";
+
+
+echo "<h3>Edit Address</h3>";
+$aform = $this->aform;
+$aform->setAttribute('action', $this->url('store/default', array('controller' => 'admin', 'action' => 'edit-user', 'id' => $this->userid)));
+$aform->prepare();
+echo $this->form()->openTag($aform);
+echo $this->formHidden($aform->get('id'));
+echo $this->formRow($aform->get('userid')->setAttribute('value', $this->userid));
+echo $this->formRow($aform->get('cityid'));
+echo $this->formRow($aform->get('cities')->setAttribute('options', $this->cityTable));
+echo $this->formRow($aform->get('street'));
+echo $this->formRow($aform->get('phone1'));
+echo $this->formRow($aform->get('phone2'));
+echo "<br/>";
+echo $this->formSubmit($aform->get('submit'));
+echo $this->form()->closeTag();
+?>

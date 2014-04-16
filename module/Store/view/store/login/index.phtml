@@ -1,0 +1,37 @@
+<h1>Login</h1>
+<?php
+// view helper
+try {
+    if ($user = $this->identity()) {
+        echo 'Logged in as ' . $this->escapeHtml($user->email);
+        ?>                
+        | <a href="<?php echo $this->url('store/default', array('controller' => 'login', 'action' => 'logout')); ?>"><?php echo $this->translate('Logout'); ?></a> 
+        <?php
+    } else {
+
+        echo $this->messages;
+        $form = $this->form;
+        $form->setAttribute('action', $this->url('store/default', array('controller' => 'login', 'action' => 'index')));
+        $form->setAttribute('class', 'form-horizontal');
+        $form->prepare();
+
+
+        echo $this->form()->openTag($form);
+echo $this->formCollection($form);
+        //echo $this->formHidden($form->get('id'));
+//        echo $this->formRow($form->get('email'));
+//        echo $this->formRow($form->get('password'));
+//        echo $this->formRow($form->get('rememberme'));
+//        echo $this->formSubmit($form->get('submit'));
+        echo $this->form()->closeTag();
+        ?>
+        <p>
+            <a href="<?php echo $this->url('store/default', array('controller' => 'registration', 'action' => 'index')); ?>"><?php echo $this->translate('Register'); ?></a> |  
+            <a href="<?php echo $this->url('store/default', array('controller' => 'registration', 'action' => 'forgotten-password')); ?>"><?php echo $this->translate('Forgotten Password'); ?></a>
+        </p>
+        <?php
+    }
+} catch (Exception $e) {
+    echo $e->getMessage();
+}
+?>

@@ -1,0 +1,56 @@
+back to <a href="<?=$this->url('store/default', array('controller' => 'admin', 'action' => 'products'))?>">products</a>
+<h1>Edit Product</h1>    
+
+<?php
+echo "<p style='color:blue;'>" . $this->message . "</p>";
+
+
+$form = $this->form;
+$form->setAttribute('action', $this->url('store/default', array('controller' => 'admin', 'action' => 'edit-product', 'id' => $this->product->id)));
+$form->setAttribute('class', 'form-horizontal');
+$form->prepare();
+echo $this->form()->openTag($form);
+echo $this->formRow($form->get('id'));
+echo "<br>";
+$helper = new Zend\Form\View\Helper\FormImage();
+echo $this->formRow($form->get('image')->setAttribute('src',$this->product->image));
+
+echo $helper($form->get('image_image')->setAttribute('src',$this->product->image));
+echo '<br>';
+
+echo '<a href="'.$this->url('store/default', array('controller' => 'admin', 'action' => 'upload-image', 'id' => $this->product->id)).'">Upload New Image</a>';
+
+
+
+echo "<br>";echo "<br>";echo "<br>";
+echo $this->formRow($form->get('categoryid')->setAttribute('value', $this->product->categoryid));
+echo $this->formRow($form->get('categories')->setAttribute('options', $this->categories));
+
+echo "<br>";
+echo $this->formRow($form->get('brand'));
+echo "<br>";
+echo $this->formRow($form->get('title'));
+echo "<br> <label><span>Description</span>";
+echo $this->formTextarea($form->get('description')->setAttribute('value',gettext($this->product->description)));
+echo "</label><br>";
+
+echo $this->formRow($form->get('price'));
+
+echo "<br>";
+echo $this->formRow($form->get('price_opt'));
+
+echo "<br>";
+echo $this->formRow($form->get('instock'));
+
+echo "<br>";
+
+echo $this->formSubmit($form->get('submit'));
+echo $this->form()->closeTag();
+
+echo "<hr>";
+
+echo "<br>Orders of this product: ". $this->orders;
+echo "<br>Percentage of sellings: ". $this->percentage.'%';
+echo "<br>NetIncome of sellings: ". $this->netincome;
+
+?>

@@ -1,0 +1,35 @@
+<h1>Admin Panel: Users</h1>
+
+<p style='color:blue;'><?=$this->message?> </p>
+
+
+<a href="<?php echo $this->url('store/default', array('controller' => 'admin', 'action' => 'create-user')); ?>">Create</a>
+
+
+<table class="table">
+<tr>
+        <th>usr_id</th>
+        <th>usr_name</th>
+        <th>usr_email</th>
+</tr>
+<?php
+        foreach ($this->paginator as $row) {
+?>
+                <tr>
+                        <td><?php  echo $row->id; ?></td>
+                        <td><?php  echo $row->firstname; ?></td>
+                        <td><?php  echo $row->email; ?></td>
+                        <td><a href="<?php echo $this->url('store/default', array('controller' => 'admin', 'action' => 'edit-user', 'id' => $row->id)); ?>">Edit</a></td>
+                        <td><a href="<?php echo $this->url('store/default', array('controller' => 'admin', 'action' => 'delete-user', 'id' => $row->id));?>" onclick="return confirm('Do you rely want to delete the record?')">Block</a></td>
+                </tr>
+<?php
+        }
+?>
+</table>
+
+<?php echo $this->paginationControl($this->paginator,
+                                    'Sliding', // All, Elastic, Jumping, Sliding
+                                    'search_pagination.phtml',
+        array('route' => 'store/users')); ?>
+<!-- 'search_pagination.phtml' 'item_pagination.phtml' dropdown_pagination.phtml -->
+<!-- ToDo, 'controller' => 'user-doctrine-paginator', array('controler'=>'user-doctrine-paginaytor') -->

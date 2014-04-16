@@ -1,0 +1,32 @@
+<h1>Admin Panel: Orders</h1>
+
+<a href="<?php echo $this->url('store/default', array('controller' => 'admin', 'action' => 'create-order')); ?>">Create</a>
+
+
+<table class="table">
+<tr>
+        <th>orderid</th>
+        <th>price</th>
+        <th>ordered</th>
+</tr>
+<?php
+        foreach ($this->paginator as $row) {
+?>
+                <tr>
+                        <td><?php  echo $row->id; ?></td>
+                        <td><?php  echo $row->price; ?></td>
+                        <td><?php  echo $row->ordered; ?></td>
+                        <td><a href="<?php echo $this->url('store/default', array('controller' => 'admin', 'action' => 'edit-order', 'id' => $row->id)); ?>">Edit</a></td>
+                        <td><a href="<?php echo $this->url('store/default', array('controller' => 'admin', 'action' => 'delete-order', 'id' => $row->id));?>" onclick="return confirm('Do you rely want to delete the record?')">stop/return</a></td>
+                </tr>
+<?php
+        }
+?>
+</table>
+
+<?php echo $this->paginationControl($this->paginator,
+                                    'Sliding', // All, Elastic, Jumping, Sliding
+                                    'search_pagination.phtml',
+        array('route' => 'store/orders')); ?>
+<!-- 'search_pagination.phtml' 'item_pagination.phtml' dropdown_pagination.phtml -->
+<!-- ToDo, 'controller' => 'user-doctrine-paginator', array('controler'=>'user-doctrine-paginaytor') -->

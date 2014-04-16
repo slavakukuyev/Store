@@ -1,0 +1,72 @@
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th><?php echo $product['brand']; ?></th>
+            <th>title</th>
+            <th>description</th>
+            <th>price</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td><img src="<?php echo $product['image'] ?>" class="img-polaroid"></td>
+            <td> 
+                <h3><?php echo $product['title']; ?></h3>
+            </td>
+            <td>
+                <?php echo $product['description']; ?>
+            </td>
+            <td><b><?php
+                echo "<span class='price'>" . $product['price'] . "</span><br><br><br>";
+
+                if ($this->identity()) {
+
+
+                    $form = $this->form;
+                    $form->setAttribute('action', $this->url('store/default', array('controller' => 'product', 'action' => 'order')));
+
+                    $form->prepare();
+                    echo $this->form()->openTag($form);
+                    echo $this->formHidden($form->get('productid')->setAttribute('value', $product['id']));
+                    echo $this->formHidden($form->get('price')->setAttribute('value', $product['price']));
+                    echo $this->formHidden($form->get('userid')->setAttribute('value', $this->identity()->id));
+                    echo $this->formHidden($form->get('count')->setAttribute('value', '1'));
+                    echo $this->formRow($form->get('counts')->setAttribute('options', $this->counts));
+                    if ((int) $this->identity()->balance < (int) $product['price']) {
+                        echo $this->formSubmit($form->get('submit')->setAttribute('class', 'hidden'));
+                    } else {
+                        echo $this->formSubmit($form->get('submit'));
+                    }
+
+
+                    echo $this->form()->closeTag();
+
+
+                    echo '<a name="deposit_order" href="' . $this->url('store/default', array('controller' => 'myaccount', 'action' => 'deposit')) . '"';
+                    if ((int) $this->identity()->balance >= (int) $product['price']) {
+                    echo ' class="hidden"';
+                    }
+                    echo '>Deposit&Order</a>';
+
+
+
+
+                    echo "<br>";
+
+                    echo "Total amount: <span class='total'>" . $product['price'] . "</span>";
+                    echo "<br>";
+                    echo "<br>";
+                    echo "Your balance: <b><span class='balance'>" . $this->identity()->balance . "</span></b>";
+                }
+                ?></b></td>            
+
+
+        </tr>
+    </tbody>
+</table>
+
+
+
+
+

@@ -1,0 +1,75 @@
+<h1>Admin Panel</h1>
+<h2>
+    <a href="<?= $this->url('store/default', array('controller' => 'admin', 'action' => 'users')) ?>">Users</a> |  
+    <a href="<?= $this->url('store/default', array('controller' => 'admin', 'action' => 'products')) ?>">Products</a> | 
+    <a href="<?= $this->url('store/default', array('controller' => 'admin', 'action' => 'orders')) ?>">Orders</a> 
+</h2>
+<h3>MyStore statistics:</h3>
+<h4>Users:</h4>
+<table class="table">
+    <thead>
+        <tr>
+            <th>title
+            </th>
+            <th>
+                num
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Registered Users</td>
+            <td><?= $this->count_allusers ?></td>
+        </tr>
+        <tr>
+            <td>Max orders by</td>
+            <?php $user = $this->top_orderer['user'] ?>
+            <td><?= $user->firstname . ' ' . $user->lastname ?>(orders:<?= $this->top_orderer['count'] ?>)</td>
+        </tr>
+        <tr>
+            <td>Top Depositor</td>
+            <td>
+                userid: <?php echo $this->top_depositor[0]['userid']; ?>(sum: <?php echo $this->top_depositor[0]['maxdeposit']; ?>)
+            </td>
+        <tr>
+    </tbody>
+</table>
+<br>
+<h4>Products:</h4>
+<table class="table">
+    <thead>
+        <tr>
+            <th>title
+            </th>
+            <th>
+                num
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>All Products</td>
+            <td><?= $this->count_allproducts ?></td>
+        </tr>
+    </tbody>
+</table>
+<br>
+<h4>Orders:</h4>
+<table class="table">
+    <thead>
+        <tr>
+            <th>title
+            </th>
+            <th>
+                num
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>All Orders</td>
+            <td><?= $this->count_allorders ?></td>
+        </tr>
+    </tbody>
+</table>
+<br>
